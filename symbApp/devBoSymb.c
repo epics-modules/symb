@@ -23,9 +23,9 @@
 #include	<recSup.h>
 #include	<recGbl.h>
 #include	<devSup.h>
-#include	<module_types.h>
 #include	<boRecord.h>
 #include	<devSymb.h>
+#include	<epicsExport.h>
 
 static long init_record();
 static long write_bo();
@@ -46,6 +46,7 @@ struct {
 	init_record,
 	NULL,
 	write_bo};
+epicsExportAddress( dset, devBoSymb );
  
 
 static long init_record(pbo)

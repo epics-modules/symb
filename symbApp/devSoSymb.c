@@ -23,9 +23,9 @@
 #include	<recSup.h>
 #include	<recGbl.h>
 #include	<devSup.h>
-#include	<module_types.h>
 #include	<stringoutRecord.h>
 #include	<devSymb.h>
+#include	<epicsExport.h>
 
 static long init_record();
 static long write_stringout();
@@ -46,6 +46,7 @@ struct {
 	init_record,
 	NULL,
 	write_stringout};
+epicsExportAddress( dset, devSoSymb );
  
 
 static long init_record(pstringout)

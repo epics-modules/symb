@@ -27,6 +27,7 @@
 #include	<link.h>
 #include	<aiRecord.h>
 #include	<devSymb.h>
+#include	<epicsExport.h>
 
 /* Create the dset for devAiSymb */
 static long init_record();
@@ -47,6 +48,7 @@ struct {
 	NULL,
 	read_ai,
 	NULL};
+epicsExportAddress( dset, devAiSymb );
 
 
 static long init_record(pai)

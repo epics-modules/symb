@@ -22,9 +22,9 @@
 #include	<recSup.h>
 #include	<recGbl.h>
 #include	<devSup.h>
-#include	<module_types.h>
 #include	<biRecord.h>
 #include	<devSymb.h>
+#include	<epicsExport.h>
 
 /* Create the dset for devBiSymb */
 static long init_record();
@@ -44,6 +44,7 @@ struct {
 	init_record,
 	NULL,
 	read_bi};
+epicsExportAddress( dset, devBiSymb );
 
 
 static long init_record(pbi)

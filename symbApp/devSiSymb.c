@@ -23,9 +23,9 @@
 #include	<recSup.h>
 #include	<recGbl.h>
 #include	<devSup.h>
-#include	<module_types.h>
 #include	<stringinRecord.h>
 #include	<devSymb.h>
+#include	<epicsExport.h>
 
 /* Create the dset for devSiSymb */
 static long init_record();
@@ -45,6 +45,7 @@ struct {
 	init_record,
 	NULL,
 	read_stringin};
+epicsExportAddress( dset, devSiSymb );
 
 
 static long init_record(pstringin)

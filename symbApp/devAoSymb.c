@@ -26,6 +26,7 @@
 #include	<special.h>
 #include	<aoRecord.h>
 #include	<devSymb.h>
+#include	<epicsExport.h>
 
 
 /* Create the dset for devAoSymb */
@@ -47,6 +48,7 @@ struct {
 	NULL,
 	write_ao,
 	NULL};
+epicsExportAddress( dset, devAoSymb );
 
 
 static long init_record(pao)

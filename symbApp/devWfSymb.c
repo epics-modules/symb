@@ -25,6 +25,7 @@
 #include	<link.h>
 #include	<waveformRecord.h>
 #include	<devSymb.h>
+#include	<epicsExport.h>
 
 
 /* Create the dset for devWfSymb */
@@ -44,6 +45,7 @@ struct {
 	init_record,
 	NULL,
 	read_wf};
+epicsExportAddress( dset, devWfSymb );
 
 static int sizeofTypes[] = {MAX_STRING_SIZE,1,1,2,2,4,4,4,8,2};
 

@@ -22,9 +22,9 @@
 #include	<recSup.h>
 #include	<recGbl.h>
 #include	<devSup.h>
-#include	<module_types.h>
 #include	<longinRecord.h>
 #include	<devSymb.h>
+#include	<epicsExport.h>
 
 /* Create the dset for devLiSymb */
 static long init_record();
@@ -44,6 +44,7 @@ struct {
 	init_record,
 	NULL,
 	read_longin};
+epicsExportAddress( dset, devLiSymb );
 
 
 static long init_record(plongin)

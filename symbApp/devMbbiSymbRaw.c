@@ -21,9 +21,9 @@
 #include        <recSup.h>
 #include	<recGbl.h>
 #include	<devSup.h>
-#include	<module_types.h>
 #include	<mbbiRecord.h>
 #include	<devSymb.h>
+#include	<epicsExport.h>
 
 /* Create the dset for devMbbiSymbRaw */
 static long init_record();
@@ -43,6 +43,7 @@ struct {
 	init_record,
 	NULL,
 	read_mbbi};
+epicsExportAddress( dset, devMbbiSymbRaw );
 
 
 static long init_record(pmbbi)

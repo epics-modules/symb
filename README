@@ -1,6 +1,6 @@
-Copyright (c) 2002 The University of Chicago, as Operator of Argonne
+Copyright (c) 2004 The University of Chicago, as Operator of Argonne
 National Laboratory.
-Copyright (c) 2002 The Regents of the University of California, as
+Copyright (c) 2004 The Regents of the University of California, as
 Operator of Los Alamos National Laboratory.
 This file is distributed subject to a Software License Agreement found
 in the file LICENSE that is included with this distribution. 
@@ -9,8 +9,7 @@ in the file LICENSE that is included with this distribution.
 			----------------------------------
 
 This EPICS module contains the vxWorks global variable device support. This
-version is for EPICS 3.14.1, although the C source code is probably compatible
-with (identical to?) that shipped with 3.13 releases.
+version is for EPICS 3.14.6.
 
 Hypertext documentation is installed into the html directory on building.
 

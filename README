@@ -2,7 +2,7 @@
 			-------------------------------
 
 This EPICS module contains the vxWorks global variable device support. This
-version requires EPICS 3.14, although the source code is probably compatible
+version is for EPICS 3.14.1, although the C source code is probably compatible
 with (identical to?) that shipped with 3.13 releases.
 
 Hypertext documentation is installed into the html directory on building.

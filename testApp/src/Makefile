@@ -3,8 +3,8 @@ include $(TOP)/configure/CONFIG
 #----------------------------------------
 #  ADD MACRO DEFINITIONS AFTER THIS LINE
 
-PROD_vxWorks = devSymbTest
+OBJS_vxWorks = devSymbTest.o
 
-include $(TOP)/configure/RULES_BUILD
+include $(TOP)/configure/RULES
 #----------------------------------------
 #  ADD RULES AFTER THIS LINE

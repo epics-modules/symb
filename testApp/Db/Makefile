@@ -6,6 +6,6 @@ include $(TOP)/configure/CONFIG
 
 DB += symb.db
 
-include $(TOP)/configure/RULES.Db
+include $(TOP)/configure/RULES
 #----------------------------------------
 #  ADD RULES AFTER THIS LINE

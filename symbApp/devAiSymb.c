@@ -54,6 +54,7 @@
 #include	<dbDefs.h>
 #include	<dbAccess.h>
 #include	<recSup.h>
+#include	<recGbl.h>
 #include	<devSup.h>
 #include	<link.h>
 #include	<aiRecord.h>

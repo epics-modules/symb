@@ -1,26 +1,26 @@
 TOP=..
 include $(TOP)/configure/CONFIG
 
-DBDINSTALL = symb.dbd
+DBD = symb.dbd
 
 HTMLS_DIR = .
 HTMLS += devSymb.html
 
-LIBSRCS_vxWorks += devAiSymb.c
-LIBSRCS_vxWorks += devAoSymb.c
-LIBSRCS_vxWorks += devBiSymb.c
-LIBSRCS_vxWorks += devBoSymb.c
-LIBSRCS_vxWorks += devLiSymb.c
-LIBSRCS_vxWorks += devLoSymb.c
-LIBSRCS_vxWorks += devMbbiSymb.c
-LIBSRCS_vxWorks += devMbbiSymbRaw.c
-LIBSRCS_vxWorks += devMbboSymb.c
-LIBSRCS_vxWorks += devMbboSymbRaw.c
-LIBSRCS_vxWorks += devSiSymb.c
-LIBSRCS_vxWorks += devSoSymb.c
-LIBSRCS_vxWorks += devSymbFind.c
-LIBSRCS_vxWorks += devWfSymb.c
+Symb_SRCS_vxWorks += devAiSymb.c
+Symb_SRCS_vxWorks += devAoSymb.c
+Symb_SRCS_vxWorks += devBiSymb.c
+Symb_SRCS_vxWorks += devBoSymb.c
+Symb_SRCS_vxWorks += devLiSymb.c
+Symb_SRCS_vxWorks += devLoSymb.c
+Symb_SRCS_vxWorks += devMbbiSymb.c
+Symb_SRCS_vxWorks += devMbbiSymbRaw.c
+Symb_SRCS_vxWorks += devMbboSymb.c
+Symb_SRCS_vxWorks += devMbboSymbRaw.c
+Symb_SRCS_vxWorks += devSiSymb.c
+Symb_SRCS_vxWorks += devSoSymb.c
+Symb_SRCS_vxWorks += devSymbFind.c
+Symb_SRCS_vxWorks += devWfSymb.c
 
-LIBRARY_vxWorks = symbLib
+LIBRARY_IOC_vxWorks = Symb
 
-include $(TOP)/configure/RULES_BUILD
+include $(TOP)/configure/RULES

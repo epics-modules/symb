@@ -1,23 +1,14 @@
-/* devSymbTest.c - Test routines for vxWorks global var device support */
+/*************************************************************************\
+* Copyright (c) 2002 The University of Chicago, as Operator of Argonne
+* National Laboratory.
+* Copyright (c) 2002 The Regents of the University of California, as
+* Operator of Los Alamos National Laboratory.
+* This file is distributed subject to a Software License Agreement found
+* in the file LICENSE that is included with this distribution. 
+\*************************************************************************/
 
-/* $Id$
- *
- * Author:	William Lupton (Keck)
- * Date:	8 June 1996
- */
+/* $Id$ */
 
-/* modification history:
- * $Log$
- * Revision 1.2  1999/10/15 22:39:17  anj
- * Unbundled from EPICS base as a 3.14 supporttop module.
- *
- * Revision 1.1  1998/01/21 20:47:46  mrk
- * restructure; new Symb support
- *
- * Revision 1.1  1996/06/09 00:52:25  wlupton
- * initial insertion
- *
- */
 
 /*
 DESCRIPTION:

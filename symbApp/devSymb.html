@@ -1,14 +1,16 @@
 <HTML>
 <HEAD>
-<TITLE>VxWorks global symbol table device support</TITLE>
+<TITLE>VxWorks global symbol device support</TITLE>
 </HEAD>
 <BODY>
 
-<H2>VxWorks global symbol table device support</H2>
-<P>
-Module Owner: <A HREF="mailto:CALionberger@lbl.gov">Carl Lionberger</A></P>
+<H2>VxWorks global symbol device support</H2>
 
-<H3>Overview</H3
+<P>This document describes the unbundled version of the symbol support that is
+intended for use with EPICS Base R3.14.1 and later.  Earlier versions of this
+device support were included with EPICS Base.</P>
+
+<H3>Overview</H3>
 
 <P>VxWorks gives the programmer access to a library of symbol table support
 routines and provides a global symbol table which contains all external
@@ -21,8 +23,8 @@ left non-static outside any function definitions in the usual `C' manner.</P>
 
 <H3>Adding to an application</H3>
 
-<P>IOC applications using this module should add a line like this to their
-<CODE>configure/RELEASE</CODE> file.</P>
+<P>IOC applications using this module should have a line like this in their
+<CODE>configure/RELEASE</CODE> file:</P>
 
 <BLOCKQUOTE>
 <PRE>SYMB=<i>/path/to/installed/symb</i></PRE>
@@ -31,26 +33,20 @@ left non-static outside any function definitions in the usual `C' manner.</P>
 <P>Database Definition file entries for the device support are given in the
 installed file <CODE>dbd/symb.dbd</CODE>. This must be linked into the
 application with the following entry in an appropriate
-<CODE>appInclude.dbd</CODE> file:
+<CODE>appInclude.dbd</CODE> file:</P>
 
 <BLOCKQUOTE>
 <PRE>include "symb.dbd"</PRE>
 </BLOCKQUOTE>
 
-<P>The device support routines described below are compiled into a single
-object library and installed as <CODE>bin/&lt;arch>/symbLib</CODE>. This file
-must be loaded by the IOC, either directly with an entry in the
-<CODE>st.cmd</CODE> file like</P>
+<P>The device support routines described below are compiled into an object
+library <CODE>lib/&lt;arch&gt;/libSymb.a</CODE>. This file must be searched
+when building the binary object for the IOC by adding it to the application's
+Makefile as follows:</P>
 
 <BLOCKQUOTE>
-<PRE>cd symbbin
-ld &lt;symbLib</PRE>
-</BLOCKQUOTE>
-
-<P>or by linking it into an application library with the Makefile command</P>
-
-<BLOCKQUOTE>
-<PRE>LIBOBJS_vxWorks += $(SYMB_BIN)/symbLib</PRE>
+<PRE>myapp_LIBS_vxWorks += Symb
+Symb_DIR = $(SYMB_LIB)</PRE>
 </BLOCKQUOTE>
 
 <H3>Description</H3>
@@ -156,7 +152,7 @@ record types) and EPICS will poll the code's output variables with suitable
 SCAN field values (using input record types).</P>
 
 <HR>
-<I>Updated Andrew Johnson, October 1999</I>
+<I>Updated Andrew Johnson, 1999 & 2003</I>
 
 </BODY>
 </HTML>

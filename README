@@ -1,5 +1,12 @@
-			README file for the symb module
-			-------------------------------
+Copyright (c) 2002 The University of Chicago, as Operator of Argonne
+National Laboratory.
+Copyright (c) 2002 The Regents of the University of California, as
+Operator of Los Alamos National Laboratory.
+This file is distributed subject to a Software License Agreement found
+in the file LICENSE that is included with this distribution. 
+
+			README file for the devSymb module
+			----------------------------------
 
 This EPICS module contains the vxWorks global variable device support. This
 version is for EPICS 3.14.1, although the C source code is probably compatible
@@ -10,7 +17,7 @@ Hypertext documentation is installed into the html directory on building.
 The following source files are provided (Makefiles not listed):
 
 README			This file
-
+LICENSE			License terms for this EPICS module
 symbApp/
     devAiSymb.c		Device support for various record types
     devAoSymb.c

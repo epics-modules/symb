@@ -76,7 +76,6 @@ struct {
 	NULL,
 	read_mbbi};
 
-long testmbr = 1;
 
 static long init_record(pmbbi)
     struct mbbiRecord	*pmbbi;

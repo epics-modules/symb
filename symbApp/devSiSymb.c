@@ -77,7 +77,6 @@ struct {
 	NULL,
 	read_stringin};
 
-char tests[] = {"01234567891123456789212345678931234567894123456789"};
 
 static long init_record(pstringin)
     struct stringinRecord	*pstringin;

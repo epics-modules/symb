@@ -8,6 +8,9 @@
 
 /* modification history:
  * $Log$
+ * Revision 1.3  1999/10/15 22:39:15  anj
+ * Unbundled from EPICS base as a 3.14 supporttop module.
+ *
  * Revision 1.2  1998/06/04 19:21:17  wlupton
  * changed to use symFindByNameEPICS
  *
@@ -47,22 +50,23 @@ name specification into its address. Two cases are supported:
    where quoted items are literal and square brackets imply optional
    items.  White space is ignored. The leading "*", if specified,
    implies that the variable in question contains the address of the
-   desired data. The name is the name of the vxWorks global variable (a
-   leading underscore is added). The optional array index is multipled
-   by the data element size (e.g. sizeof(char), sizeof(long) or
+   desired data. The name is the name of the vxWorks global variable
+   (a leading underscore will be added if required by the particular
+   target architecture). The optional array index is multipled by the
+   data element size (e.g. sizeof(char), sizeof(long) or
    sizeof(double)) and applied as an offset to the data address.
 
    For example:
 
-   a) "fred" refers to the value of the vxWorks global variable "_fred"
+   a) "fred" refers to the value of the vxWorks global variable "fred"
 
    b) "*fred" refers to the value whose address is the value of the
-      vxWorks global variable "_fred"
+      vxWorks global variable "fred"
 
-   c) "fred[1]" assumes that the vxWorks global variable "_fred" is an
+   c) "fred[1]" assumes that the vxWorks global variable "fred" is an
       array and refers to its second element
 
-   d) "*fred[1]" assumes that the vxWorks global variable "_fred"
+   d) "*fred[1]" assumes that the vxWorks global variable "fred"
       contains the address of an array and refers to the second element
       of the array
 
@@ -79,21 +83,23 @@ name specification into its address. Two cases are supported:
 2. Otherwise, behavior is the same as before: the name of the vxWorks
    global variable is derived from the record name by stripping off any
    prefix ending with the first ":" and any suffix starting with the
-   last ";".  As in the other case, an underscore is automatically
-   prefixed.
+   last ";".  As in the other case, an underscore is will be prefixed
+   if  required by the target architecture.
 
    For example:
 
-   a) "ppp:fred;sss" refers to the vxWorks global variable "_fred"
+   a) "ppp:fred;sss" refers to the vxWorks global variable "fred"
 
-   b) "a:b:c;d;e" refers to the vxWorks global variable "_b:c;d"
+   b) "a:b:c;d;e" refers to the vxWorks global variable "b:c;d" (this
+      example is obviously an illegal name in C; it demonstrates the
+      limited nature of the name extraction process).
 
 The second case is supported for backwards compatibility. The first
 (INST_IO) is preferred.
 */
 
 #include        <vxWorks.h>
-#include        <sysSymTbl.h>
+#include        <epicsDynLink.h>
 
 #include        <ctype.h>
 #include        <stdio.h>
@@ -102,7 +108,8 @@ The second case is supported for backwards compatibility. The first
 
 #include        <dbDefs.h>
 #include        <link.h>
-#include	<devSymb.h>
+
+#include	"devSymb.h"
 
 /* forward references */
 static int parseInstio(char *string, int *deref, char **name, int *index);
@@ -170,9 +177,6 @@ static int parseInstio(char *string, int *deref, char **name, int *index)
     static char pname[256];
     char *begin;
 
-    /* copy leading underscore to name */
-    strcpy(pname, "_");
-
     /* set default return values */
     *deref = 0;
     *name  = pname;
@@ -198,7 +202,7 @@ static int parseInstio(char *string, int *deref, char **name, int *index)
     for (; *string && !isspace(*string) && *string != '['; string++);
 
     /* copy and terminate variable name */
-    strncat(pname, begin, string-begin);
+    strncpy(pname, begin, string-begin);
     pname[string-begin+1] = '\0';
 
     /* skip white space */

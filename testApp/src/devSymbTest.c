@@ -8,6 +8,9 @@
 
 /* modification history:
  * $Log$
+ * Revision 1.2  1999/10/15 22:39:17  anj
+ * Unbundled from EPICS base as a 3.14 supporttop module.
+ *
  * Revision 1.1  1998/01/21 20:47:46  mrk
  * restructure; new Symb support
  *
@@ -24,14 +27,12 @@ device support.
 */
 
 #include        <vxWorks.h>
-#include        <sysSymTbl.h>
+#include	<sysLib.h>
+#include	<taskLib.h>
 
-#include        <ctype.h>
 #include        <stdio.h>
 #include        <string.h>
 
-#include        <dbDefs.h>
-#include        <link.h>
 
 /* global variables for testing */
 

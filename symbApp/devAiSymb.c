@@ -79,7 +79,6 @@ struct {
 	read_ai,
 	NULL};
 
-double testd = 5.5;
 
 static long init_record(pai)
     struct aiRecord	*pai;

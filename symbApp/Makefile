@@ -1,27 +1,26 @@
-TOP=../../../..
-
+TOP=..
 include $(TOP)/configure/CONFIG
 
 DBDINSTALL = symb.dbd
 
-MYSRCS += devAiSymb.c
-MYSRCS += devAoSymb.c
-MYSRCS += devBiSymb.c
-MYSRCS += devBoSymb.c
-MYSRCS += devLiSymb.c
-MYSRCS += devLoSymb.c
-MYSRCS += devMbbiSymb.c
-MYSRCS += devMbbiSymbRaw.c
-MYSRCS += devMbboSymb.c
-MYSRCS += devMbboSymbRaw.c
-MYSRCS += devSiSymb.c
-MYSRCS += devSoSymb.c
-MYSRCS += devSymbFind.c
-MYSRCS += devWfSymb.c
+HTMLS_DIR = .
+HTMLS += devSymb.html
 
-PROD_vxWorks = $(MYSRCS:%.c=%.o)
+LIBSRCS_vxWorks += devAiSymb.c
+LIBSRCS_vxWorks += devAoSymb.c
+LIBSRCS_vxWorks += devBiSymb.c
+LIBSRCS_vxWorks += devBoSymb.c
+LIBSRCS_vxWorks += devLiSymb.c
+LIBSRCS_vxWorks += devLoSymb.c
+LIBSRCS_vxWorks += devMbbiSymb.c
+LIBSRCS_vxWorks += devMbbiSymbRaw.c
+LIBSRCS_vxWorks += devMbboSymb.c
+LIBSRCS_vxWorks += devMbboSymbRaw.c
+LIBSRCS_vxWorks += devSiSymb.c
+LIBSRCS_vxWorks += devSoSymb.c
+LIBSRCS_vxWorks += devSymbFind.c
+LIBSRCS_vxWorks += devWfSymb.c
 
-symb_SRCS = $(MYSRCS)
-LIBRARY_vxWorks = symb
+LIBRARY_vxWorks = symbLib
 
 include $(TOP)/configure/RULES_BUILD

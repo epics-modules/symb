@@ -76,7 +76,6 @@ struct {
 	NULL,
 	read_longin};
 
-long testl = 5463;
 
 static long init_record(plongin)
     struct longinRecord	*plongin;

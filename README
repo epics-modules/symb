@@ -1,51 +1,41 @@
-README file for dev/symb directory
-----------------------------------
+			README file for the symb module
+			-------------------------------
 
-This directory contains all files necessary to build and test a version
-of EPICS vxWorks global variable device support which uses the INST_IO
-string as the variable name specification rather than deriving the name
-from the record name.
+This EPICS module contains the vxWorks global variable device support. This
+version requires EPICS 3.14, although the source code is probably compatible
+with (identical to?) that shipped with 3.13 releases.
 
-In addition to specifying a variable name, a leading "*" operator indicates
-that the variable is a pointer and a trailing "[nnnn]" indicates that an
-element of an array should be accessed.
+Hypertext documentation is installed into the html directory on building.
 
-Refer to the header comments of devSymbFind.c for full details.
-
-The following files are in the release:
+The following source files are provided (Makefiles not listed):
 
 README			This file
 
-Makefile		UAE Makefile
-Makefile.LibObjs	UAE list of objects
-Makefile.Vx		UAE vxWorks Makefile
+symbApp/
+    devAiSymb.c		Device support for various record types
+    devAoSymb.c
+    devBiSymb.c
+    devBoSymb.c
+    devLiSymb.c
+    devLoSymb.c
+    devMbbiSymb.c
+    devMbbiSymbRaw.c
+    devMbboSymb.c
+    devMbboSymbRaw.c
+    devSiSymb.c
+    devSoSymb.c
+    devWfSymb.c
 
-devAiSymb.c		Device support for various record types
-devAoSymb.c
-devBiSymb.c
-devBoSymb.c
-devLiSymb.c
-devLoSymb.c
-devMbbiSymb.c
-devMbbiSymbRaw.c
-devMbboSymb.c
-devMbboSymbRaw.c
-devSiSymb.c
-devSoSymb.c
-devWfSymb.c
+    symb.dbd		device() entries for the above support files
 
-devSymbFind.c		New module containing parsing code
-			(includes conditionally compiled test routine)
+    devSymbFind.c	Utility routines for parsing INST_IO parm strings
+			(includes a conditionally compiled test routine)
 
-devSymbTest.c		Defines globals and a routine for test
+    devSymb.html	HTML documentation
 
-symb.dbd		New INST_IO entries for the above record types
-
-symb.db			Test database (works with devSymbTest.c)
-symb.sr			Test database (works with devSymbTest.c)
-symbStartup.vws		Test vxWorks startup script
-
-
-12-Mar-98, William Lupton (wlupton@keck.hawaii.edu), CVS tag: symb-3-0
-----------------------------------------------------------------------
+testApp/
+    src/
+	devSymbTest.c	Defines globals and a routine for test (needs update)
+    Db/
+	symb.db		Test database (for use with devSymbTest.c)
 

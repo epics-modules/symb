@@ -1,0 +1,3 @@
+#CONFIG
+include $(TOP)/configure/CONFIG_APP
+# Add any global changes to configuration variables here

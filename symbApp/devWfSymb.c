@@ -69,8 +69,6 @@ struct {
 	read_wf};
 
 static int sizeofTypes[] = {MAX_STRING_SIZE,1,1,2,2,4,4,4,8,2};
-
-double testwf[] = {1.1, 2.2, 4.4, 8.8, 16.16, 32.32};
 
 
 static long init_record(pwf)

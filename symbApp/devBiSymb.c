@@ -77,7 +77,6 @@ struct {
 	NULL,
 	read_bi};
 
-long testb = 1;
 
 static long init_record(pbi)
     struct biRecord	*pbi;

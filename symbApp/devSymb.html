@@ -1,0 +1,162 @@
+<HTML>
+<HEAD>
+<TITLE>VxWorks global symbol table device support</TITLE>
+</HEAD>
+<BODY>
+
+<H2>VxWorks global symbol table device support</H2>
+<P>
+Module Owner: <A HREF="mailto:CALionberger@lbl.gov">Carl Lionberger</A></P>
+
+<H3>Overview</H3
+
+<P>VxWorks gives the programmer access to a library of symbol table support
+routines and provides a global symbol table which contains all external
+variable and function references in the system.  The device support module
+described here allow selected record types to read and write variables
+referenced by name.  This capability allows EPICS to monitor and influence
+VxWorks-runnable code which was written without any knowledge of EPICS; the
+code needs only to have its critical variables declared externally, that is,
+left non-static outside any function definitions in the usual `C' manner.</P>
+
+<H3>Adding to an application</H3>
+
+<P>IOC applications using this module should add a line like this to their
+<CODE>configure/RELEASE</CODE> file.</P>
+
+<BLOCKQUOTE>
+<PRE>SYMB=<i>/path/to/installed/symb</i></PRE>
+</BLOCKQUOTE>
+
+<P>Database Definition file entries for the device support are given in the
+installed file <CODE>dbd/symb.dbd</CODE>. This must be linked into the
+application with the following entry in an appropriate
+<CODE>appInclude.dbd</CODE> file:
+
+<BLOCKQUOTE>
+<PRE>include "symb.dbd"</PRE>
+</BLOCKQUOTE>
+
+<P>The device support routines described below are compiled into a single
+object library and installed as <CODE>bin/&lt;arch>/symbLib</CODE>. This file
+must be loaded by the IOC, either directly with an entry in the
+<CODE>st.cmd</CODE> file like</P>
+
+<BLOCKQUOTE>
+<PRE>cd symbbin
+ld &lt;symbLib</PRE>
+</BLOCKQUOTE>
+
+<P>or by linking it into an application library with the Makefile command</P>
+
+<BLOCKQUOTE>
+<PRE>LIBOBJS_vxWorks += $(SYMB_BIN)/symbLib</PRE>
+</BLOCKQUOTE>
+
+<H3>Description</H3>
+
+<P>Device support is provided for most of the standard input and output record
+types.  These provide the ability to read and write <CODE>double</CODE> (ai,
+ao), <CODE>long</CODE> (bi, bo, mbbi, mbbo, longin, longout), and
+<CODE>char&nbsp;*</CODE> (stringin, stringout) variable types.  Waveform
+records use the TYPE field to select which variable type to read.</P>
+
+<P>The device type "vxWorks Variable" is defined for each of the above record
+types in the <CODE>symb.dbd</CODE> file.  Within a database the name of the
+VxWorks symbol desired is obtained one of two ways, depending on whether the
+LINK field type is a CONSTANT or INST_IO.</P>
+
+<DL>
+<DT>CONSTANT
+<DD>The name of the vxWorks global variable is derived from the record
+name by stripping off any prefix ending with the first ":" and any
+suffix starting with the last ";".  An underscore is automatically
+prefixed if required by the particular target architecture.
+
+<P>For example:  "<CODE>ppp:fred;sss</CODE>" refers to the vxWorks global
+variable "<CODE>fred</CODE>".</P>
+
+<P>The intention is that the prefix would refer to the IOC and the suffix
+would  distinguish references within an IOC.  Suffixes and prefixes are
+optional.</P>
+
+</DD>
+
+<P>
+<DT>INST_IO
+<DD>The string value of the link field is assumed to be of the form:
+
+<BLOCKQUOTE>
+<PRE>[ "*" ] name [ "[" index "]" ]</PRE>
+</BLOCKQUOTE>
+
+<P>where quoted items are literal and square brackets imply optional items. 
+White space is ignored. The leading "*", if specified, implies that the
+variable in question is a pointer containing the address of the desired data.
+The name is the name of the vxWorks global variable (a leading underscore is
+added if required by the target architecture). The optional array index is
+multipled by the data element size (e.g. sizeof(char), sizeof(long) or
+sizeof(double)) and applied as an offset to the data address.</P>
+
+<P>For example:</P>
+
+<DL>
+<DT>DIRECT</DT>
+<DD>"<CODE>fred</CODE>" refers to the value of the vxWorks global variable
+"<CODE>fred</CODE>"</DD>
+
+<P>
+<DT>INDIRECT</DT>
+<DD>"<CODE>*fred</CODE>" refers to the value whose address is given in the
+vxWorks global pointer "<CODE>fred</CODE>".   The value of the pointer will be
+read at run-time rather than initialisation, allowing it to be changed
+dynamically.</DD>
+
+<P>
+<DT>INDEXED</DT>
+<DD>"<CODE>fred[1]</CODE>" states that the vxWorks global variable
+"<CODE>fred</CODE>" is an array and refers to its second element</DD>
+
+<P>
+<DT>INDIRECT + INDEXED</DT>
+<DD>"<CODE>*fred[1]</CODE>" states that the vxWorks global pointer
+"<CODE>fred</CODE>" contains the address of an array, and refers to the second
+element of that array</DD> </DL>
+
+<P>Note that the interpretation of the "<CODE>*</CODE>" operator is not the
+same as in C.  For example, "<CODE>fred</CODE>" and "<CODE>fred[0]</CODE>"
+produce the same result, but "<CODE>*fred</CODE>" and "<CODE>fred[0]</CODE>"
+are different.</P>
+
+<P>Finally note that strings are not treated any differently from longs or
+doubles in that the address returned from this routine is simply the address of
+the data. "<CODE>fred</CODE>" is the entire string. "<CODE>fred[2]</CODE>"
+starts at the third character of the string.</P>
+
+</DD>
+</DL>
+
+<P>Symbol table lookup is performed only at record init time; the resulting
+pointer is stored in the DPVT field.  (The indirection, if present, is resolved
+at run time.)  If the symbol is not found an illegal NAME field error is posted
+and DPVT is set to NULL.  Processing consists of reading or writing the VAL
+field using the pointer, unless the pointer is NULL, in which case the device
+support module exits immediately.</P>
+
+<P>Other than for the multi-bit raw support no value conversions are performed;
+it is assumed that the symbol refers to a variable of the same type as the
+record's VAL field.  String operations are restricted to the 40 character size
+of the string record VAL fields and null termination is enforced.</P>
+
+<P>No exclusion or interlocking with other code using the referenced variable
+is provided, other than locking interrupts while reading or writing the value. 
+Synchronization must be provided by the appliation on a case-by-case basis. 
+Typically the vxWorks code will poll for its input variables (set by output
+record types) and EPICS will poll the code's output variables with suitable
+SCAN field values (using input record types).</P>
+
+<HR>
+<I>Updated Andrew Johnson, October 1999</I>
+
+</BODY>
+</HTML>

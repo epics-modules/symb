@@ -8,6 +8,12 @@
 
 /* Modification History:
  * $Log$
+ * Revision 1.2  1998/06/04 19:32:11  wlupton
+ * addition of intLock()/intUnlock() (BESSY)
+ *
+ * Revision 1.1.1.1  1998/03/16 16:57:06  franksen
+ * Imported using tkCVS
+ *
  * Revision 1.1  1998/01/21 20:47:44  mrk
  * restructure; new Symb support
  *

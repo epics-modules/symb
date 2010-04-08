@@ -176,7 +176,7 @@ static int parseInstio(char *string, int *deref, char **name, int *index)
 
     /* copy and terminate variable name */
     strncpy(pname, begin, string-begin);
-    pname[string-begin+1] = '\0';
+    pname[string-begin] = '\0';
 
     /* skip white space */
     for (; isspace(*string); string++);

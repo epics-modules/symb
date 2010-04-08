@@ -9,7 +9,8 @@ in the file LICENSE that is included with this distribution.
 			----------------------------------
 
 This EPICS module contains the vxWorks global variable device support. This
-version is for EPICS 3.14.6.
+version has been built on R3.14.11 but should work on releases back to
+R3.14.6 and probably earlier.
 
 Hypertext documentation is installed into the html directory on building.
 

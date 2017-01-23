@@ -4,3 +4,6 @@ lib
 dbd
 html
 db
+configure/*.local
+**/O.*
+

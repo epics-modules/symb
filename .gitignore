@@ -3,7 +3,7 @@ include
 lib
 dbd
 html
-db
+/db/
 configure/*.local
 **/O.*
 
